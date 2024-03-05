@@ -34,7 +34,8 @@ class UnitTestApplicationTests {
 	@Test
 	void createUserTest() throws Exception {
 		User user = new User(1L, "Mario", "Rossi");
-		mockMvc.perform(post("/user/create").contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(post("/user/create")
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(user))).andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").exists())
 				.andExpect(jsonPath("$.nome").value("Mario"))
@@ -57,7 +58,8 @@ class UnitTestApplicationTests {
 
 		User user2 = new User(1L, "Luigi", "Verdi");
 
-		mockMvc.perform(put("/user/update/{id}", user.getId()).contentType(MediaType.APPLICATION_JSON)
+		mockMvc.perform(put("/user/update/{id}", user.getId())
+				.contentType(MediaType.APPLICATION_JSON)
 				.content(objectMapper.writeValueAsString(user2)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.id").value(user.getId()))
